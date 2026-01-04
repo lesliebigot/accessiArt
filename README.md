@@ -119,8 +119,8 @@ Ce projet accorde une importance particulière à l'accessibilité pour les pers
 
 **1. Cloner le projet**
 ```bash
-git clone git@github.com:lesliebigot/impressionist-paintings.git
-cd impressionist-paintings
+git clone git@github.com:lesliebigot/accessiArt.git
+cd accessiArt
 ```
 
 **2. Installer les dépendances**
@@ -166,8 +166,8 @@ L'application sera accessible à l'adresse **http://localhost:3000**
 
 **1. Cloner le projet**
 ```bash
-git clone git@github.com:lesliebigot/impressionist-paintings.git
-cd impressionist-paintings
+git clone git@github.com:lesliebigot/accessiArt.git
+cd accessiArt
 ```
 
 **2. Lancer l'application**
