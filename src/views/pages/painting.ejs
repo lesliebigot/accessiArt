@@ -1,0 +1,90 @@
+<%- include("../partials/head") %> <%- include('../partials/header') %>
+<!-- détails d'un tableau -->
+<main id="main-content" class="min-h-screen p-8 bg-base-200">
+  <div class="max-w-4xl mx-auto">
+    <article
+      class="card lg:card-side bg-base-100 shadow-xl overflow-hidden"
+      aria-labelledby="painting-title"
+    >
+      <figure
+        class="lg:w-1/2 p-6"
+        role="group"
+        aria-label="Illustration du tableau"
+      >
+        <img
+          src="<%= painting.image_url %>"
+          alt="<%= painting.short_description %>"
+          class="max-w-sm shadow-2xl"
+        />
+      </figure>
+
+      <div class="card-body lg:w-1/2 p-6">
+        <!-- Titre principal -->
+        <h1
+          id="painting-title"
+          class="card-title text-secondary text-4xl font-extrabold mb-4"
+        >
+          <%= painting.title %>
+        </h1>
+
+        <!-- Informations plus accessibles dans une liste de description -->
+        <section aria-labelledby="technical-info">
+          <h2 id="technical-info" class="sr-only">
+            Informations sur ce tableau : <%= painting.title %>
+          </h2>
+          <dl class="text-sm space-y-1 mb-6">
+            <div>
+              <dt class="font-semibold text-primary inline">Année :</dt>
+              <dd class="font-normal text-base-content inline ml-1">
+                <time
+                  datetime="<%= new Date(painting.painted_at).getFullYear() %>"
+                >
+                  <%= new Date(painting.painted_at).getFullYear() %>
+                </time>
+              </dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-primary inline">Auteur :</dt>
+              <dd class="font-normal text-base-content inline ml-1">
+                <%= painting.painter %>
+              </dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-primary inline">
+                Courant pictural :
+              </dt>
+              <dd class="font-normal text-base-content inline ml-1">
+                <%= painting.movement_name %>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Description détaillée -->
+        <section
+          aria-labelledby="description-heading"
+          class="text-base leading-relaxed grow"
+        >
+          <h2 id="description-heading" class="mb-4 font-bold text-lg">
+            Description
+          </h2>
+          <p><%= painting.long_description %></p>
+        </section>
+
+        <!-- Navigation -->
+        <nav
+          aria-label="Navigation dans la collection"
+          class="card-actions justify-end mt-6"
+        >
+          <a href="/paintings">
+            <button class="btn btn-outline btn-primary">
+              <span aria-hidden="true">←</span>
+              Retour à la liste
+            </button>
+          </a>
+        </nav>
+      </div>
+    </article>
+  </div>
+</main>
+<%- include('../partials/footer') %>

@@ -1,0 +1,48 @@
+# On va définir des services (container qui seront démarrer)
+services:
+  # Le nom du service (ici user) sera utilisé pour faire communiquer les services entre eux
+  accessiart:
+    # build va me permettre d'indiquer où ce situe le Dockerfile
+    build: .
+    # Les ports va me permettre de rendre accessible le service depuis l'extérieur
+    ports:
+      - "3000:3000"
+    env_file:
+      # J'indique mon fichier d'environnement
+      - .env
+    command: "npm run dev"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: paint
+      POSTGRES_PASSWORD: paint
+      POSTGRES_DB: paint
+    ports:
+      # Pour pouvoir se connecter à la BDD depuis l'extérieur
+      - "5434:5432"
+    volumes:
+      # On utilise le fichier pour initialiser la BDD (correction du nom du répertoire)
+      - ./src/database:/docker-entrypoint-initdb.d:ro
+      # On utilise le volume pour stocker les données de la BDD
+      - db:/var/lib/postgresql/data
+    # Permet de vérifier si la BDD est prête à recevoir des requêtes
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U paint -d paint']
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+volumes:
+  db:
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,28 @@
+{
+  "name": "tableauimpressionniste",
+  "version": "1.0.0",
+  "description": "travail sur l'accéssibilité",
+  "license": "ISC",
+  "author": "bibi",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format:ejs": "prettier --write \"**/*.ejs\"",
+    "format:css": "prettier --write \"**/*.css\"",
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "daisyui": "^5.5.3",
+    "eslint": "^9.39.1",
+    "prettier": "^3.6.2"
+  }
+}
