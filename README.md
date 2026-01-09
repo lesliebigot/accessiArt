@@ -105,7 +105,7 @@ Ce projet accorde une importance particulière à l'accessibilité pour les pers
 
 ## 💻 Installation
 
-### Prérequis
+### Pour visualiser le projet
 
 <details>
 <summary><b>Option 1 : Installation locale (sans Docker)</b></summary>
@@ -224,7 +224,7 @@ docker compose logs -f
 
 ## 🤝 Contribuer
 
-Les contributions sont les bienvenues. Si vous souhaitez enrichir la collection avec de nouvelles descriptions, je serai ravie de recevoir vos idées.
+Les contributions sont les bienvenues. Si vous souhaitez enrichir la collection avec de nouvelles descriptions, je serai enchantée de recevoir vos idées.
 
 ## 📝 Sources des données
 
