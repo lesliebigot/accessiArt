@@ -10,7 +10,7 @@
 
 ## 🎯 À propos du projet
 
-**Accessi'Art** est une application web éducative développée dans un cadre personnel après une formation en développement web (CDA école O'clock). Elle vise à rendre l'art impressionniste accessible à tous, notamment aux personnes malvoyantes, grâce à des descriptions détaillées et une interface optimisée pour les lecteurs d'écran.
+**Accessi'Art** est une application web éducative développée dans un cadre personnel après une formation en développement web (CDA école O'clock). Elle vise à rendre l'art impressionniste accessible à tous, notamment aux personnes malvoyantes, grâce à des descriptions détaillées et une interface optimisée et épurée pour les lecteurs d'écran.
 
 ### Objectifs
 
