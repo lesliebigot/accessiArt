@@ -222,9 +222,37 @@ docker compose logs -f
 - `Entrée` / `Espace` : Activer un élément
 - `Échap` : Fermer les modales/accordéons
 
+##  🧪 Plan de tests
+
+Les tests arrivent bientôt ... ;-)
+
+## 🚧 Développements et fonctionnalités futures
+
+- Le visiteur pourra proposer des tableaux libres de droit et leurs descriptions pour les malvoyants dans un formulaire restrictif et sécurisé ;
+- Pagination de la liste de tous les tableaux ;
+- Ajout de descriptions audio enregistrées pour une expérience encore plus immersive.
+
 ## 🤝 Contribuer
 
-Les contributions sont les bienvenues. Si vous souhaitez enrichir la collection avec de nouvelles descriptions, je serai enchantée de recevoir vos idées.
+Les contributions sont les bienvenues ! Si vous souhaitez enrichir la collection avec de nouvelles descriptions pour les malvoyants, je serai enchantée de recevoir vos idées. Je suis également preneuse de vos corrections des descriptions actuelles si besoin.
+<details>
+<summary>Comment contribuer ?</summary>
+
+1. **Forkez** le projet
+2. Créez une **branche** pour votre fonctionnalité  
+   ```bash
+   git checkout -b feature/nouvelle-description
+   ```
+3. **Commitez** vos changements  
+   ```bash
+   git commit -m 'Ajout de descriptions pour Renoir'
+   ```
+4. **Poussez** vers la branche  
+   ```bash
+   git push origin feature/nouvelle-description
+   ```
+5. Ouvrez une **Pull Request**
+</details>
 
 ## 📝 Sources des données
 
@@ -243,8 +271,16 @@ Les œuvres présentées sont dans le **domaine public** (artistes décédés de
 📧 [leslieBIGOT@hotmail.com](mailto:leslieBIGOT@hotmail.com)  
 🔗 [LinkedIn](https://www.linkedin.com/in/lesliebigot)  
 
+##  💡 Prochain projet
+Pourquoi pas un site qui décrit la musique aux personnes atteintes de surdité ?
+*L'accessibilité culturelle n'a pas de limites...*
+
 ---
 
 ⭐ **Si ce projet vous plaît, n'hésitez pas à proposer de nouvelles descriptions de tableaux !**
 
 ---
+
+<div align="center">
+  <sub>Développé avec ❤️ pour rendre l'art accessible à tous</sub>
+</div>
