@@ -1,0 +1,43 @@
+# Fichier Docker Compose pour la PRODUCTION
+services:
+  accessiart:
+    build: .
+    restart: unless-stopped  # Redémarre automatiquement si crash
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    command: "npm start"  
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  db:
+    image: postgres:16-alpine  
+    restart: unless-stopped  # Redémarre automatiquement
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}  
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}  
+      POSTGRES_DB: ${POSTGRES_DB}  
+    # ports: supprimé pour la production
+    volumes:
+      - ./src/database:/docker-entrypoint-initdb.d:ro
+      - db-data:/var/lib/postgresql/data  # Données persistantes
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+volumes:
+  db-data: 
+
+networks:
+  app-network:
+    driver: bridge
