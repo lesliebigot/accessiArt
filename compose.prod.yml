@@ -5,10 +5,10 @@ services:
     restart: unless-stopped  # Redémarre automatiquement si crash
     ports:
       - "3000:3000"
-    env_file:
-      - .env
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - PG_URL=${PG_URL}
     command: "npm start"  
     depends_on:
       db:
