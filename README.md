@@ -271,8 +271,9 @@ Les œuvres présentées sont dans le **domaine public** (artistes décédés de
 📧 [leslieBIGOT@hotmail.com](mailto:leslieBIGOT@hotmail.com)  
 🔗 [LinkedIn](https://www.linkedin.com/in/lesliebigot)  
 
-##  💡 Prochain projet
+## 💡 Prochain projet
 Pourquoi pas un site qui décrit la musique aux personnes atteintes de surdité ?
+
 ---
 
 ⭐ **Si ce projet vous plaît, n'hésitez pas à proposer de nouvelles descriptions de tableaux !**
