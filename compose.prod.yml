@@ -25,7 +25,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}  
     # ports: supprimé pour la production
     volumes:
-      - ./src/database:/docker-entrypoint-initdb.d:ro
       - db-data:/var/lib/postgresql/data  # Données persistantes
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
