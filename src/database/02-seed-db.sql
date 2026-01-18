@@ -66,7 +66,7 @@ VALUES
   froids. Fait intéressant : bien qu''il semble très lumineux avec sa couleur orange, le soleil a la même 
   luminosité que le ciel qui l''entoure.',
   'Claude Monet',
-  '/images/Claude_Monet,_Impression,_soleil_levant.jpg',
+  '/images/Claude_Monet,_Impression,_soleil_levant.webp',
   '1872-11-13',
   1
 ),
@@ -90,7 +90,7 @@ VALUES
    de mouvement et de légèreté. L''ensemble dégage une sensation de spontanéité et de fraîcheur, 
    comme un instant suspendu lors d''une promenade estivale.',
   'Claude Monet',
-  '/images/Claude_Monet,_La_Femme_a_lombrelle.jpg',
+  '/images/Claude_Monet,_La_Femme_a_lombrelle.webp',
   '1875-06-01',
   1
 ),
@@ -117,7 +117,7 @@ VALUES
   avec des touches de blanc, de vert et de noir. Mais ces couleurs ne sont jamais plates - elles tourbillonnent, 
   se mélangent, créent une impression de profondeur et de mouvement perpétuel.',
   'Vincent van Gogh',
-  '/images/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+  '/images/Van_Gogh_-_Starry_Night_-_Google_Art_Project.webp',
   '1889-06-01',
   2
 ),
@@ -139,7 +139,7 @@ VALUES
   est paisible et méditative. Le tableau célèbre le travail féminin, la concentration et la dignité, 
   rehaussée par la touche de gaieté du nœud rouge.',
   'Suzanne Valadon',
-  '/images/Jeune_femme_faisant_du_crochet_Suzanne_Valadon.jpg',
+  '/images/Jeune_femme_faisant_du_crochet_Suzanne_Valadon_optimized.webp',
   '1892-01-01',
   2
 ),
@@ -164,7 +164,7 @@ VALUES
   acide de la prairie dialogue avec l''orange flamboyant de la colline et le jaune doré des cyprès, 
   créant une harmonie visuelle à la fois audacieuse et contemplative.',
   'Emile Bernard',
-  '/images/Emile_Bernard_-_Les_femmes_bretonnes_a_la_prière.jpg',
+  '/images/Emile_Bernard_-_Les_femmes_bretonnes_a_la_prière.webp',
   '1892-01-01',
   2
 ),
@@ -187,7 +187,7 @@ VALUES
   animaux empaillés, ce qui explique le caractère à la fois précis et imaginaire de cette jungle fantasmée, 
   caractéristique de l''art naïf du Douanier Rousseau.',
   'Henri Rousseau',
-  '/images/Henri_Rousseau_Cheval_attaque_par_un_jaguar.jpg',
+  '/images/Henri_Rousseau_Cheval_attaque_par_un_jaguar.webp',
   '1910-01-01',
   4
 );
