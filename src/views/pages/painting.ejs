@@ -1,16 +1,21 @@
-<%- include("../partials/head") %> <%- include('../partials/header') %>
-<!-- détails d'un tableau -->
+<%- include("../partials/head") %> 
+<%- include('../partials/header') %>
 <main id="main-content" class="min-h-screen p-8 bg-base-200">
   <div class="max-w-4xl mx-auto">
-    <article
-      class="card lg:card-side bg-base-100 shadow-xl overflow-hidden"
-      aria-labelledby="painting-title"
-    >
-      <figure
-        class="lg:w-1/2 p-6"
-        role="group"
-        aria-label="Illustration du tableau"
-      >
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="mb-6">
+      <ol class="flex gap-2 text-sm">
+        <li><a href="/" class="link link-hover">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/paintings" class="link link-hover">Tableaux</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="font-semibold"><%= painting.title %></li>
+      </ol>
+    </nav>
+
+    <article class="card lg:card-side bg-base-100 shadow-xl overflow-hidden" aria-labelledby="painting-title">
+      
+      <figure class="lg:w-1/2 p-6" role="group" aria-label="Illustration du tableau">
         <img
           src="<%= painting.image_url %>"
           alt="<%= painting.short_description %>"
@@ -20,67 +25,115 @@
 
       <div class="card-body lg:w-1/2 p-6">
         <!-- Titre principal -->
-        <h1
-          id="painting-title"
-          class="card-title text-secondary text-4xl font-extrabold mb-4"
-        >
+        <h1 id="painting-title" class="card-title text-secondary text-4xl font-extrabold mb-4">
           <%= painting.title %>
         </h1>
 
-        <!-- Informations plus accessibles dans une liste de description -->
+        <!-- Informations techniques -->
         <section aria-labelledby="technical-info">
-          <h2 id="technical-info" class="sr-only">
-            Informations sur ce tableau : <%= painting.title %>
-          </h2>
-          <dl class="text-sm space-y-1 mb-6">
+          <h2 id="technical-info" class="sr-only">Informations techniques</h2>
+          <dl class="text-sm space-y-2 mb-6">
             <div>
               <dt class="font-semibold text-primary inline">Année :</dt>
               <dd class="font-normal text-base-content inline ml-1">
-                <time
-                  datetime="<%= new Date(painting.painted_at).getFullYear() %>"
-                >
+                <time datetime="<%= new Date(painting.painted_at).getFullYear() %>">
                   <%= new Date(painting.painted_at).getFullYear() %>
                 </time>
               </dd>
             </div>
             <div>
-              <dt class="font-semibold text-primary inline">Auteur :</dt>
-              <dd class="font-normal text-base-content inline ml-1">
-                <%= painting.painter %>
-              </dd>
+              <dt class="font-semibold text-primary inline">Artiste :</dt>
+              <dd class="font-normal text-base-content inline ml-1"><%= painting.painter %></dd>
             </div>
             <div>
-              <dt class="font-semibold text-primary inline">
-                Courant pictural :
-              </dt>
+              <dt class="font-semibold text-primary inline">Courant pictural :</dt>
+              <dd class="font-normal text-base-content inline ml-1"><%= painting.movement_name %></dd>
+            </div>
+            <% if (painting.dimensions) { %>
+            <div>
+              <dt class="font-semibold text-primary inline">Dimensions :</dt>
+              <dd class="font-normal text-base-content inline ml-1"><%= painting.dimensions %></dd>
+            </div>
+            <% } %>
+            <% if (painting.museum) { %>
+            <div>
+              <dt class="font-semibold text-primary inline">Musée :</dt>
               <dd class="font-normal text-base-content inline ml-1">
-                <%= painting.movement_name %>
+                <% if (painting.museum_url) { %>
+                  <a href="<%= painting.museum_url %>" target="_blank" rel="noopener noreferrer" class="link link-primary">
+                    <%= painting.museum %>
+                    <span class="sr-only">(ouvre dans un nouvel onglet)</span>
+                  </a>
+                <% } else { %>
+                  <%= painting.museum %>
+                <% } %>
               </dd>
             </div>
+            <% } %>
           </dl>
         </section>
 
-        <!-- Description détaillée -->
-        <section
-          aria-labelledby="description-heading"
-          class="text-base leading-relaxed grow"
-        >
-          <h2 id="description-heading" class="mb-4 font-bold text-lg">
-            Description
-          </h2>
-          <p><%= painting.long_description %></p>
+        <!-- Description détaillée structurée -->
+        <section aria-labelledby="description-heading" class="text-base leading-relaxed space-y-6">
+          <h2 id="description-heading" class="text-2xl font-bold text-primary mb-4">Description</h2>
+          
+          <% if (painting.description_structured) { 
+            const desc = typeof painting.description_structured === 'string' 
+              ? JSON.parse(painting.description_structured) 
+              : painting.description_structured;
+          %>
+            
+            <!-- Introduction -->
+            <% if (desc.introduction) { %>
+            <div>
+              <p class="text-lg font-medium mb-2"><%= desc.introduction %></p>
+            </div>
+            <% } %>
+            
+            <!-- Composition -->
+            <% if (desc.composition && desc.composition.length > 0) { %>
+            <div>
+              <h3 class="text-xl font-semibold text-primary mb-3">Composition</h3>
+              <% desc.composition.forEach((paragraph) => { %>
+                <p class="mb-3"><%= paragraph %></p>
+              <% }); %>
+            </div>
+            <% } %>
+            
+            <!-- Technique -->
+            <% if (desc.technique && desc.technique.length > 0) { %>
+            <div>
+              <h3 class="text-xl font-semibold text-primary mb-3">Technique</h3>
+              <% desc.technique.forEach((paragraph) => { %>
+                <p class="mb-3"><%= paragraph %></p>
+              <% }); %>
+            </div>
+            <% } %>
+            
+            <!-- Interprétation -->
+            <% if (desc.interpretation && desc.interpretation.length > 0) { %>
+            <div>
+              <h3 class="text-xl font-semibold text-primary mb-3">Interprétation</h3>
+              <% desc.interpretation.forEach((paragraph) => { %>
+                <p class="mb-3"><%= paragraph %></p>
+              <% }); %>
+            </div>
+            <% } %>
+            
+          <% } else if (painting.long_description) { %>
+            <!-- Fallback : ancienne description en un seul bloc -->
+            <p><%= painting.long_description %></p>
+          <% } %>
         </section>
 
         <!-- Navigation -->
-        <nav
-          aria-label="Navigation dans la collection"
-          class="card-actions justify-end mt-6"
-        >
-          <a href="/paintings">
-            <button class="btn btn-outline btn-primary">
-              <span aria-hidden="true">←</span>
-              Retour à la liste
-            </button>
+        <nav aria-label="Navigation dans la collection" class="card-actions justify-between mt-6 pt-6 border-t border-base-300">
+          <a href="/paintings" class="btn btn-outline btn-primary">
+            <span aria-hidden="true">←</span>
+            Retour à la liste
+          </a>
+          <a href="/movements" class="btn btn-outline btn-accent">
+            Voir les courants
           </a>
         </nav>
       </div>
