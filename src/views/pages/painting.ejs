@@ -1,10 +1,10 @@
 <%- include("../partials/head") %> 
 <%- include('../partials/header') %>
 <main id="main-content" class="min-h-screen p-8 bg-base-200">
-  <div class="max-w-4xl mx-auto">
+  <div class="max-w-7xl mx-auto">
     <!-- Fil d'Ariane -->
     <nav aria-label="Fil d'Ariane" class="mb-6">
-      <ol class="flex gap-2 text-sm">
+      <ol class="flex gap-2 text-sm flex-wrap">
         <li><a href="/" class="link link-hover">Accueil</a></li>
         <li aria-hidden="true">/</li>
         <li><a href="/paintings" class="link link-hover">Tableaux</a></li>
@@ -13,131 +13,224 @@
       </ol>
     </nav>
 
-    <article class="card lg:card-side bg-base-100 shadow-xl overflow-hidden" aria-labelledby="painting-title">
+    <!-- Titre principal avant l'image pour les lecteurs d'écran -->
+    <h1 id="painting-title" class="text-secondary text-3xl md:text-4xl font-extrabold mb-6">
+      <%= painting.title %>
+    </h1>
+
+    <!-- Layout responsive : colonne unique sur mobile, deux colonnes sur desktop -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       
-      <figure class="lg:w-1/2 p-6" role="group" aria-label="Illustration du tableau">
-        <img
-          src="<%= painting.image_url %>"
-          alt="<%= painting.short_description %>"
-          class="max-w-sm shadow-2xl"
-        />
-      </figure>
-
-      <div class="card-body lg:w-1/2 p-6">
-        <!-- Titre principal -->
-        <h1 id="painting-title" class="card-title text-secondary text-4xl font-extrabold mb-4">
-          <%= painting.title %>
-        </h1>
-
-        <!-- Informations techniques -->
-        <section aria-labelledby="technical-info">
-          <h2 id="technical-info" class="sr-only">Informations techniques</h2>
-          <dl class="text-sm space-y-2 mb-6">
-            <div>
-              <dt class="font-semibold text-primary inline">Année :</dt>
-              <dd class="font-normal text-base-content inline ml-1">
-                <time datetime="<%= new Date(painting.painted_at).getFullYear() %>">
-                  <%= new Date(painting.painted_at).getFullYear() %>
-                </time>
-              </dd>
-            </div>
-            <div>
-              <dt class="font-semibold text-primary inline">Artiste :</dt>
-              <dd class="font-normal text-base-content inline ml-1"><%= painting.painter %></dd>
-            </div>
-            <div>
-              <dt class="font-semibold text-primary inline">Courant pictural :</dt>
-              <dd class="font-normal text-base-content inline ml-1"><%= painting.movement_name %></dd>
-            </div>
-            <% if (painting.dimensions) { %>
-            <div>
-              <dt class="font-semibold text-primary inline">Dimensions :</dt>
-              <dd class="font-normal text-base-content inline ml-1"><%= painting.dimensions %></dd>
-            </div>
-            <% } %>
-            <% if (painting.museum) { %>
-            <div>
-              <dt class="font-semibold text-primary inline">Musée :</dt>
-              <dd class="font-normal text-base-content inline ml-1">
-                <% if (painting.museum_url) { %>
-                  <a href="<%= painting.museum_url %>" target="_blank" rel="noopener noreferrer" class="link link-primary">
-                    <%= painting.museum %>
-                    <span class="sr-only">(ouvre dans un nouvel onglet)</span>
-                  </a>
-                <% } else { %>
-                  <%= painting.museum %>
-                <% } %>
-              </dd>
-            </div>
-            <% } %>
-          </dl>
-        </section>
-
-        <!-- Description détaillée structurée -->
-        <section aria-labelledby="description-heading" class="text-base leading-relaxed space-y-6">
-          <h2 id="description-heading" class="text-2xl font-bold text-primary mb-4">Description</h2>
+      <!-- Section Image avec zoom -->
+      <section class="order-1" aria-labelledby="image-section-title">
+        <h2 id="image-section-title" class="sr-only">Illustration du tableau</h2>
+        
+        <!-- Bouton pour agrandir l'image -->
+        <div class="bg-base-100 rounded-lg shadow-xl p-4">
+          <div class="mb-4 flex justify-between items-center">
+            <p class="text-sm text-base-content/70">Cliquez sur l'image pour l'agrandir</p>
+            <button 
+              id="zoom-btn"
+              class="btn btn-sm btn-primary"
+              aria-label="Agrandir l'image du tableau en plein écran"
+            >
+              🔍 Agrandir
+            </button>
+          </div>
           
-          <% if (painting.description_structured) { 
-            const desc = typeof painting.description_structured === 'string' 
-              ? JSON.parse(painting.description_structured) 
-              : painting.description_structured;
-          %>
-            
-            <!-- Introduction -->
-            <% if (desc.introduction) { %>
-            <div>
-              <p class="text-lg font-medium mb-2"><%= desc.introduction %></p>
-            </div>
-            <% } %>
-            
-            <!-- Composition -->
-            <% if (desc.composition && desc.composition.length > 0) { %>
-            <div>
-              <h3 class="text-xl font-semibold text-primary mb-3">Composition</h3>
-              <% desc.composition.forEach((paragraph) => { %>
-                <p class="mb-3"><%= paragraph %></p>
-              <% }); %>
-            </div>
-            <% } %>
-            
-            <!-- Technique -->
-            <% if (desc.technique && desc.technique.length > 0) { %>
-            <div>
-              <h3 class="text-xl font-semibold text-primary mb-3">Technique</h3>
-              <% desc.technique.forEach((paragraph) => { %>
-                <p class="mb-3"><%= paragraph %></p>
-              <% }); %>
-            </div>
-            <% } %>
-            
-            <!-- Interprétation -->
-            <% if (desc.interpretation && desc.interpretation.length > 0) { %>
-            <div>
-              <h3 class="text-xl font-semibold text-primary mb-3">Interprétation</h3>
-              <% desc.interpretation.forEach((paragraph) => { %>
-                <p class="mb-3"><%= paragraph %></p>
-              <% }); %>
-            </div>
-            <% } %>
-            
-          <% } else if (painting.long_description) { %>
-            <!-- Fallback : ancienne description en un seul bloc -->
-            <p><%= painting.long_description %></p>
-          <% } %>
-        </section>
+          <!-- Image cliquable -->
+          <figure class="cursor-zoom-in" id="image-container">
+            <img
+              id="painting-image"
+              src="<%= painting.image_url %>"
+              alt="<%= painting.short_description %>"
+              class="w-full h-auto rounded-lg shadow-2xl transition-transform hover:scale-105"
+              tabindex="0"
+              role="button"
+              aria-label="Cliquez pour agrandir l'image de <%= painting.title %>"
+            />
+          </figure>
+        </div>
+      </section>
 
-        <!-- Navigation -->
-        <nav aria-label="Navigation dans la collection" class="card-actions justify-between mt-6 pt-6 border-t border-base-300">
-          <a href="/paintings" class="btn btn-outline btn-primary">
-            <span aria-hidden="true">←</span>
-            Retour à la liste
-          </a>
-          <a href="/movements" class="btn btn-outline btn-accent">
-            Voir les courants
-          </a>
-        </nav>
-      </div>
-    </article>
+      <!-- Section Informations et Description -->
+      <section class="order-2" aria-labelledby="info-section-title">
+        <div class="bg-base-100 rounded-lg shadow-xl p-6">
+          <h2 id="info-section-title" class="sr-only">Informations sur le tableau</h2>
+          
+          <!-- Informations techniques -->
+          <section aria-labelledby="technical-info" class="mb-6">
+            <h3 id="technical-info" class="text-xl font-bold text-primary mb-4">Informations</h3>
+            <dl class="space-y-2">
+              <div class="flex flex-wrap gap-2">
+                <dt class="font-semibold text-primary">Année :</dt>
+                <dd class="font-normal text-base-content">
+                  <time datetime="<%= new Date(painting.painted_at).getFullYear() %>">
+                    <%= new Date(painting.painted_at).getFullYear() %>
+                  </time>
+                </dd>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <dt class="font-semibold text-primary">Artiste :</dt>
+                <dd class="font-normal text-base-content"><%= painting.painter %></dd>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <dt class="font-semibold text-primary">Courant pictural :</dt>
+                <dd class="font-normal text-base-content"><%= painting.movement_name %></dd>
+              </div>
+              <% if (painting.dimensions) { %>
+              <div class="flex flex-wrap gap-2">
+                <dt class="font-semibold text-primary">Dimensions :</dt>
+                <dd class="font-normal text-base-content"><%= painting.dimensions %></dd>
+              </div>
+              <% } %>
+              <% if (painting.museum) { %>
+              <div class="flex flex-wrap gap-2">
+                <dt class="font-semibold text-primary">Musée :</dt>
+                <dd class="font-normal text-base-content">
+                  <% if (painting.museum_url) { %>
+                    <a href="<%= painting.museum_url %>" target="_blank" rel="noopener noreferrer" class="link link-primary">
+                      <%= painting.museum %>
+                      <span class="sr-only">(ouvre dans un nouvel onglet)</span>
+                    </a>
+                  <% } else { %>
+                    <%= painting.museum %>
+                  <% } %>
+                </dd>
+              </div>
+              <% } %>
+            </dl>
+          </section>
+
+          <!-- Description détaillée structurée -->
+          <section aria-labelledby="description-heading" class="text-base leading-relaxed space-y-6">
+            <h3 id="description-heading" class="text-2xl font-bold text-primary mb-4">Description</h3>
+            
+            <% if (painting.description_structured) { 
+              const desc = typeof painting.description_structured === 'string' 
+                ? JSON.parse(painting.description_structured) 
+                : painting.description_structured;
+            %>
+              
+              <!-- Introduction -->
+              <% if (desc.introduction) { %>
+              <div>
+                <p class="text-lg font-medium mb-2"><%= desc.introduction %></p>
+              </div>
+              <% } %>
+              
+              <!-- Composition -->
+              <% if (desc.composition && desc.composition.length > 0) { %>
+              <div>
+                <h4 class="text-xl font-semibold text-primary mb-3">Composition</h4>
+                <% desc.composition.forEach((paragraph) => { %>
+                  <p class="mb-3"><%= paragraph %></p>
+                <% }); %>
+              </div>
+              <% } %>
+              
+              <!-- Technique -->
+              <% if (desc.technique && desc.technique.length > 0) { %>
+              <div>
+                <h4 class="text-xl font-semibold text-primary mb-3">Technique</h4>
+                <% desc.technique.forEach((paragraph) => { %>
+                  <p class="mb-3"><%= paragraph %></p>
+                <% }); %>
+              </div>
+              <% } %>
+              
+              <!-- Interprétation -->
+              <% if (desc.interpretation && desc.interpretation.length > 0) { %>
+              <div>
+                <h4 class="text-xl font-semibold text-primary mb-3">Interprétation</h4>
+                <% desc.interpretation.forEach((paragraph) => { %>
+                  <p class="mb-3"><%= paragraph %></p>
+                <% }); %>
+              </div>
+              <% } %>
+              
+            <% } else if (painting.long_description) { %>
+              <!-- Fallback : ancienne description -->
+              <p><%= painting.long_description %></p>
+            <% } %>
+          </section>
+        </div>
+      </section>
+    </div>
+
+    <!-- Navigation -->
+    <nav aria-label="Navigation dans la collection" class="mt-8 flex justify-between items-center flex-wrap gap-4">
+      <a href="/paintings" class="btn btn-outline btn-accent">
+        <span aria-hidden="true">←</span>
+        Retour à la liste
+      </a>
+      <a href="/movements" class="btn btn-outline btn-success">
+        Voir les courants
+      </a>
+    </nav>
   </div>
 </main>
+
+<!-- Modal de zoom plein écran -->
+<div id="zoom-modal" class="modal">
+  <div class="modal-box w-full max-w-none h-full max-h-none p-0 bg-black/95">
+    <!-- Barre d'outils -->
+    <div class="absolute top-0 left-0 right-0 z-10 bg-black/80 p-4">
+      <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2">
+        <!-- Boutons de zoom -->
+        <div class="flex flex-wrap gap-2">
+          <button 
+            id="zoom-in-btn" 
+            class="btn btn-sm btn-primary flex-1 sm:flex-none"
+            aria-label="Zoomer davantage sur l'image"
+          >
+            🔍+ Zoom +
+          </button>
+          <button 
+            id="zoom-out-btn" 
+            class="btn btn-sm btn-primary flex-1 sm:flex-none"
+            aria-label="Dézoomer l'image"
+          >
+            🔍- Zoom -
+          </button>
+          <button 
+            id="reset-zoom-btn" 
+            class="btn btn-sm btn-secondary flex-1 sm:flex-none"
+            aria-label="Réinitialiser le zoom"
+          >
+            ↺ Réinitialiser
+          </button>
+        </div>
+        
+        <!-- Bouton fermer -->
+        <button 
+          id="close-modal-btn" 
+          class="btn btn-sm btn-error w-full sm:w-auto"
+          aria-label="Fermer la vue agrandie et revenir à la page"
+        >
+          ✕ Fermer
+        </button>
+      </div>
+    </div>
+
+    <!-- Conteneur de l'image zoomable -->
+    <div class="w-full h-full flex items-center justify-center overflow-auto p-4 pt-20">
+      <img
+        id="zoomed-image"
+        src="<%= painting.image_url %>"
+        alt="<%= painting.short_description %> - Vue agrandie"
+        class="max-w-none transition-transform cursor-move"
+        draggable="false"
+      />
+    </div>
+
+    <!-- Instructions -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/80 text-white px-4 py-2 rounded text-sm">
+      <p class="text-center">
+        Utilisez les boutons de zoom ou la molette de la souris. Cliquez et glissez pour déplacer l'image.
+      </p>
+    </div>
+  </div>
+</div>
+
 <%- include('../partials/footer') %>
