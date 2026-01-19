@@ -1,2 +1,4 @@
 node_modules/
 .env
+convert_to_webp.py
+optimize_large_image.py

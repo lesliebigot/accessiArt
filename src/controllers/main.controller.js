@@ -16,7 +16,7 @@ export const mainController = {
     if (isNaN(paintingId)) { return next(); }
     // Récupérer les données depuis la BDD
     const painting = await dataMapper.getPaintingById(paintingId);
-    // Si le café demandé n'existe, alors on renvoie une page 404
+    // Si le tableau demandé n'existe, alors on renvoie une page 404
     if (! painting) {
       res.status(404).send("erreur HTTP 404, tableau non trouvé"); 
       // On arrête la fonction, pour éviter le second render() juste après

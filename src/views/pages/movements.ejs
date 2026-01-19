@@ -12,6 +12,11 @@
         <%= movements.length %> <%= movements.length > 1 ? 'courants picturaux'
         : 'courant pictural' %> dans la collection
       </p>
+      <!-- Instructions pour les lecteurs d'écran -->
+      <p class="sr-only">
+        Chaque courant pictural peut être déplié en activant son bouton. 
+        Utilisez la touche Espace ou Entrée pour déplier et lire la description complète.
+      </p>
     </header>
 
     <!-- Liste des courants picturaux -->
@@ -27,6 +32,7 @@
             type="radio"
             name="movements-accordion"
             id="movement-<%= index %>"
+            aria-label="Déplier la description du courant <%= movement.name %>"
           />
 
           <!-- En-tête du collapse (titre visible) -->
@@ -37,12 +43,13 @@
             >
               <%= movement.name %>
             </h2>
+            <span class="sr-only">(cliquez ou appuyez sur Entrée pour déplier)</span>
           </div>
 
           <!-- Contenu dépliable -->
-          <div class="collapse-content">
+          <div class="collapse-content" id="movement-content-<%= index %>" role="region" aria-labelledby="movement-title-<%= index %>">
             <div class="pt-4 border-t border-base-300">
-              <h3 class="sr-only">Description du courant</h3>
+              <h3 class="font-semibold text-lg mb-3">Description du courant <%= movement.name %></h3>
               <p class="text-base leading-relaxed text-base-content/90 mb-4">
                 <%= movement.description %>
               </p>

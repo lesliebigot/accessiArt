@@ -35,3 +35,24 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
+.cursor-zoom-in {
+  cursor: zoom-in;
+}
+
+/* Style pour le zoom sur un tableau */
+#zoomed-image {
+  position: relative;
+  cursor: move;
+}
+
+.modal {
+  display: none;
+}
+
+.modal.modal-open {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}
+

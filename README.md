@@ -229,6 +229,7 @@ Les tests arrivent bientôt ... ;-)
 ## 🚧 Développements et fonctionnalités futures
 
 - Le visiteur pourra proposer des tableaux libres de droit et leurs descriptions pour les malvoyants dans un formulaire restrictif et sécurisé ;
+- Indiquer la taille du tableau et quel musée abrite l'oeuvre ;
 - Pagination de la liste de tous les tableaux ;
 - Ajout de descriptions audio enregistrées pour une expérience encore plus immersive.
 

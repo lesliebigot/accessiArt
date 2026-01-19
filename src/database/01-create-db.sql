@@ -19,11 +19,14 @@ CREATE TABLE "painting" (
     "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     "title" TEXT NOT NULL,
     "short_description" TEXT NOT NULL,
-    "long_description" TEXT NOT NULL,
+    -- Description structurée en JSONB
+    "description_structured" JSONB,
     "painter" TEXT NOT NULL,
     "image_url" TEXT,
     "painted_at" DATE,
     "movement_id" INTEGER NOT NULL REFERENCES "movement"("id") ON DELETE CASCADE,
+    "dimensions" VARCHAR(100),
+    "museum" VARCHAR(200),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
@@ -31,6 +34,9 @@ CREATE TABLE "painting" (
 -- Index pour améliorer les performances des recherches
 CREATE INDEX "idx_painting_movement_id" ON "painting"("movement_id");
 CREATE INDEX "idx_painting_painter" ON "painting"("painter");
+
+-- Index GIN pour recherche dans JSONB (très performant)
+CREATE INDEX "idx_painting_description_jsonb" ON "painting" USING GIN ("description_structured");
 
 -- Trigger pour mettre à jour automatiquement updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()

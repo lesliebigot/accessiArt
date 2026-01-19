@@ -44,10 +44,10 @@
       <% paintings.forEach((painting) => { %>
       <li data-movement-id="<%= painting.movement_id %>">
         <article
-          class="card bg-base-100 shadow-sm"
+          class="card bg-base-100 shadow-sm h-full flex flex-col"
           aria-labelledby="painting-title-<%= painting.id %>"
         >
-          <figure class="h-80">
+          <figure class="h-80 flex-shrink-0">
             <img
               src="<%= painting.image_url %>"
               alt="<%= painting.short_description || painting.title + ' par ' + painting.painter %>"
@@ -55,7 +55,7 @@
               loading="lazy"
             />
           </figure>
-          <div class="card-body">
+          <div class="card-body flex flex-col flex-grow">
             <h2 class="card-title" id="painting-title-<%= painting.id %>">
               <%= painting.title %>
             </h2>
@@ -67,6 +67,8 @@
               <span class="sr-only">Courant : </span>
               <%= painting.movement_name %>
             </p>
+            <!-- Espaceur flexible qui pousse le bouton vers le bas -->
+            <div class="flex-grow"></div>
             <div class="card-actions justify-end mt-4">
               <a
                 href="/painting/<%= painting.id %>"
