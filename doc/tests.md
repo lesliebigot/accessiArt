@@ -11,6 +11,7 @@
 ### Installation 
 ```
 npm install --save-dev jest @axe-core/cli jest-axe jsdom @testing-library/jest-dom
+npm install --save-dev jest-environment-jsdom
 ```
 ### Utilisation
 

@@ -7,7 +7,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:a11y": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__/accessibility.test.js",
     "format:ejs": "prettier --write \"**/*.ejs\"",
     "format:css": "prettier --write \"**/*.css\"",
     "dev": "node --watch index.js",
@@ -34,6 +36,7 @@
     "eslint": "^9.39.1",
     "jest": "^30.2.0",
     "jest-axe": "^10.0.0",
+    "jest-environment-jsdom": "^30.2.0",
     "jsdom": "^27.4.0",
     "prettier": "^3.6.2"
   }
