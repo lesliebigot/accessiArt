@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import globals from "globals";
+import jestPlugin from 'eslint-plugin-jest';
 
 export default [
   {
@@ -26,4 +27,14 @@ export default [
       ],
     },
   },
+  // Configuration spécifique pour les fichiers de test
+  {
+    files: ["**/__tests__/**/*.js", "**/*.test.js", "jest.setup.js"],
+    ...jestPlugin.configs["flat/recommended"],
+    languageOptions: {
+      globals: {
+        ...jestPlugin.environments.globals.globals,
+      }
+    }
+  }
 ];
