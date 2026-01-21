@@ -196,7 +196,7 @@ docker compose down
 docker compose down -v
 
 # Reconstruire après modification
-docker compose up -d --build
+docker compose up --build
 
 # Voir les logs en temps réel
 docker compose logs -f
@@ -224,7 +224,47 @@ docker compose logs -f
 
 ##  🧪 Plan de tests
 
-Les tests arrivent bientôt ... ;-)
+Les tests arrivent bientôt dans la branche "tests" ... ;-)
+
+##  🚀 Déploiement en production
+
+<details>
+<summary><b>Déploiement avec Portainer</b></summary>
+
+### 1. Créer une nouvelle Stack
+
+Dans Portainer, allez dans **Stacks** → **+ Add stack** et choisissez **Git Repository** :
+
+```
+Repository URL: https://github.com/lesliebigot/accessiArt
+Reference: refs/heads/prod (ou branche prod-v2 pour la version production)
+Compose path: compose.prod.yml
+```
+
+### 2. Configurer les variables d'environnement
+
+Dans l'onglet **Environment variables** (mode avancé), ajoutez :
+
+```env
+POSTGRES_USER=accessiart
+POSTGRES_PASSWORD=motDePasseComplexe
+POSTGRES_DB=accessiart_db
+PG_URL=postgres://accessiart:motDePasseComplexe@db:5432/accessiart_db
+NODE_ENV=production
+PORT=3000
+```
+
+### 3. Déployer la stack
+
+Cliquez sur **Deploy the stack**. L'application sera accessible sur le port 3000.
+
+### 4. Configurer le reverse proxy
+
+Configurez votre reverse proxy (Nginx, Traefik, ou le reverse proxy intégré du NAS) pour rediriger le trafic HTTPS vers `localhost:3000`.
+
+**Note** : Si vous avez modifié le schéma de la base de données, vous devez supprimer la stack et ses volumes associés avant de la recréer, sinon les anciennes données seront conservées.
+
+</details>
 
 ## 🚧 Développements et fonctionnalités futures
 
