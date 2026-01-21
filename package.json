@@ -11,7 +11,14 @@
     "format:ejs": "prettier --write \"**/*.ejs\"",
     "format:css": "prettier --write \"**/*.css\"",
     "dev": "node --watch index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "docker:restart": "docker compose restart",
+    "docker:clean": "docker compose down -v",
+    "docker:dev": "docker compose up"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
