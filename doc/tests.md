@@ -2,15 +2,15 @@
 
 ## Tests de l'accéssibilité
 
-### 🎯 Bibliothèque axe-core avec Jest
+### 🎯 Avec Jest
 
-- Spécialisé accessibilité : Détecte automatiquement les problèmes ARIA, sémantique, labels, etc.
-- Rapports détaillés : Explique exactement ce qui ne va pas.
-- Pas besoin de navigateur : Teste le code HTML pur.
+- Tests de structure HTML sémantique ;
+- Vérification des attributs ARIA ;
+- Validation des images et navigation.
 
 ### Installation 
 ```
-npm install --save-dev jest @axe-core/cli jest-axe jsdom @testing-library/jest-dom
+npm install --save-dev jest jsdom 
 npm install --save-dev jest-environment-jsdom
 ```
 ### Utilisation
@@ -51,5 +51,3 @@ npm run test:watch
 - Classes `.sr-only` correctes
 - Contenu pertinent pour lecteurs d'écran
 
-✅ **Violations automatiques**
-- axe-core détecte 50+ règles d'accessibilité

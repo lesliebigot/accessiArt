@@ -1,5 +1,4 @@
 // jest.setup.js
-//import { toHaveNoViolations } from "jest-axe";
+/* eslint-env jest */
 
-// Ajouter les matchers personnalisés de jest-axe pour des messages d'erreur explicites
-//expect.extend(toHaveNoViolations);
+// Configuration minimale pour des configurations futures
