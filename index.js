@@ -1,9 +1,23 @@
 import "dotenv/config";
 import express from "express";
 import { router } from "./src/router.js";
+import helmet from "helmet";
 
 // Créer une app Express
 const app = express();
+
+// Middleware de sécurité avec Helmet
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://plausible.io"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+      imgSrc: ["'self'", "data:", "https:"],
+      fontSrc: ["'self'", "https://cdn.jsdelivr.net"],
+    },
+  },
+}));
 
 // Configuration du view engine
 app.set("view engine", "ejs");
