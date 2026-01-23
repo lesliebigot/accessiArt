@@ -1,4 +1,4 @@
 // jest.setup.js
 /* eslint-env jest */
 
-// Configuration minimale pour des configurations futures
+// Configuration minimale pour des tets futurs
