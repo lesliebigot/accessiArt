@@ -1,11 +1,13 @@
 # 🎨 Accessi'Art : Peinture en Mots
 
 > Application web permettant de découvrir les œuvres des grands maîtres de la peinture impressionniste de manière accessible aux personnes malvoyantes.
+* Visitez le site en production [ici](https://accessiart.douay-bigot.info).
 
 [![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)](https://nodejs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.x-blue.svg)](https://www.postgresql.org/)
 [![Express](https://img.shields.io/badge/Express-5.x-lightgrey.svg)](https://expressjs.com/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![Accessibilité](https://img.shields.io/badge/Accessibilité-Testée-success.svg)](https://accessiart.douay-bigot.info)
 
 
 ## 🎯 À propos du projet
@@ -270,7 +272,7 @@ Configurez votre reverse proxy (Nginx, Traefik, ou le reverse proxy intégré du
 
 - Le visiteur pourra proposer des tableaux libres de droit et leurs descriptions pour les malvoyants dans un formulaire restrictif et sécurisé ;
 - Pagination de la liste de tous les tableaux ;
-- Ajout de descriptions audio enregistrées pour une expérience encore plus immersive.
+- Ajout d'une table pour fournir une biographie concise sur chaque peintre.
 
 ## 🤝 Contribuer
 
@@ -293,6 +295,43 @@ Les contributions sont les bienvenues ! Si vous souhaitez enrichir la collection
    ```
 5. Ouvrez une **Pull Request**
 </details>
+
+## 💬 Témoignages d'utilisateurs
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 👤 Philippe Pelletier - Association H2VL
+**Utilisateur aveugle**
+
+> "Je trouve ton projet très pertinent. Au niveau de l'accessibilité, tout était très bien."
+
+**Ce qu'il apprécie :**
+- ✅ Navigation fluide
+- ✅ Descriptions sensibles et détaillées
+- ✅ Structure claire (Composition, Technique, Interprétation)
+
+*Testé avec lecteur d'écran - Jan. 2026*
+
+</td>
+<td width="50%" valign="top">
+
+### 👤 Saifeddin Ayedi - Association H2VL
+**Utilisateur aveugle**
+
+> "Le site respecte les normes d'accessibilité au plus haut niveau. **Aucune anomalie détectée.**"
+
+**Tests réalisés :**
+- ✅ VoiceOver (iOS)
+- ✅ NVDA (Windows)
+- ✅ JAWS (Windows)
+
+*Testé avec lecteur d'écran - Jan. 2026*
+
+</td>
+</tr>
+</table>
 
 ## 📝 Sources des données
 
