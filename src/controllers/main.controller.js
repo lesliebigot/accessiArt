@@ -10,17 +10,32 @@ export const mainController = {
     res.render("pages/paintings", { paintings, movements, subtitle : "Collection de tableaux" });
   },
 
+  // eslint-disable-next-line no-unused-vars
   async renderOnePaintingPage(req, res, next) {
     // Récupérer l'ID du tableau
     const paintingId = parseInt(req.params.id,10);
-    if (isNaN(paintingId)) { return next(); }
+    if (isNaN(paintingId)) { 
+      return res.status(404).render("pages/error", {
+        subtitle: "Tableau non trouvé",
+        error: {
+          code: 404,
+          title: "Tableau non trouvé",
+          message: "Le tableau demandé n'existe pas ou l'identifiant est invalide." 
+        }
+      });
+    }
     // Récupérer les données depuis la BDD
     const painting = await dataMapper.getPaintingById(paintingId);
     // Si le tableau demandé n'existe, alors on renvoie une page 404
     if (! painting) {
-      res.status(404).send("erreur HTTP 404, tableau non trouvé"); 
-      // On arrête la fonction, pour éviter le second render() juste après
-      return;
+      return res.status(404).render("pages/error", {
+        subtitle: "Tableau non trouvé",
+        error: {
+          code: 404,
+          title: "Tableau non trouvé",
+          message: "Le tableau demandé n'existe pas dans notre collection."
+        }
+      });
     }
     res.render("pages/painting", { painting , subtitle : `Détails du tableau ${painting.title}`  });
   },
