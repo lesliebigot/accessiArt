@@ -1,8 +1,41 @@
 <!-- pied de page -->
-    <footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
-        <nav>   
-            <a href="/legal-notice" className="link link-hover">Mentions légales</a>   
-        </nav>
-    </footer>   
+
+  <footer class="footer footer-center p-10 bg-base-200 text-base-content">
+      <nav aria-label="Navigation du pied de page">
+        <div class="grid grid-flow-col gap-4">
+          <a href="/" class="link link-hover">Accueil</a>
+          <a href="/paintings" class="link link-hover">Tableaux</a>
+          <a href="/movements" class="link link-hover">Courants picturaux</a>
+          <a href="/legal-notice" class="link link-hover">Mentions légales</a>
+        </div>
+      </nav>
+      
+      <!-- Bouton "Retour en haut" / "Retour au contenu principal" -->
+      <nav aria-label="Navigation rapide">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a 
+            href="#main-content" 
+            class="btn btn-outline btn-primary btn-sm"
+            aria-label="Retour au contenu principal de la page"
+          >
+            Retour au contenu principal
+          </a>
+          
+          <a 
+            href="#top" 
+            class="btn btn-outline btn-secondary btn-sm"
+            aria-label="Retour en haut de la page"
+          >
+            Retour en haut
+          </a>
+        </div>
+      </nav>
+      
+      <aside>
+        <p class="text-sm">
+          Conçu et développé par Leslie Bigot
+        </p>
+      </aside>
+    </footer>
   </body>
 </html>
