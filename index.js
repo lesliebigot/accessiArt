@@ -15,19 +15,31 @@ app.use(express.static("./public"));
 // Brancher le routeur
 app.use(router);
 
-// TODO refacto error middlewares
-// Middleware : not found
-app.use((error, req, res, next) => {
-  console.error(error);
-  res.status(404).send("erreur HTTP 404, page non trouvée");
-  next();
+// Middleware : not found (404)
+app.use((req, res) => {
+  res.status(404).render("pages/error", {
+    subtitle: "Page non trouvée",
+    error: {
+      code: 404,
+      title: "Page non trouvée",
+      message: "Désolé, la page que vous recherchez n'existe pas ou a été déplacée."
+    }
+  });
 });
 
-// Middleware : global error handler
+// Middleware : global error handler (500)
+// eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
-  console.error(error);
-  res.status(500).send("erreur HTTP 500, problème serveur");
-  next();
+  console.error("Erreur serveur:", error);
+  
+  res.status(500).render("pages/error", {
+    subtitle: "Erreur du serveur",
+    error: {
+      code: 500,
+      title: "Erreur du serveur",
+      message: "Une erreur inattendue s'est produite. Nos équipes ont été informées et travaillent à résoudre le problème."
+    }
+  });
 });
 
 // Lancer un serveur HTTP
