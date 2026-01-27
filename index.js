@@ -11,10 +11,20 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://plausible.io"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+      scriptSrc: [
+        "'self'", 
+        "'unsafe-inline'",  
+        "https://cdn.tailwindcss.com", 
+        "https://plausible.io"
+      ],
+      styleSrc: [
+        "'self'", 
+        "'unsafe-inline'", //pour Tailwind et DaisyUI
+        "https://cdn.jsdelivr.net"
+      ],
       imgSrc: ["'self'", "data:", "https:"],
       fontSrc: ["'self'", "https://cdn.jsdelivr.net"],
+      connectSrc: ["'self'", "https://plausible.io"], 
     },
   },
 }));
