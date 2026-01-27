@@ -1,11 +1,13 @@
 # 🎨 Accessi'Art : Peinture en Mots
 
 > Application web permettant de découvrir les œuvres des grands maîtres de la peinture impressionniste de manière accessible aux personnes malvoyantes.
+* Visitez le site en production [ici](https://accessiart.douay-bigot.info).
 
 [![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)](https://nodejs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.x-blue.svg)](https://www.postgresql.org/)
 [![Express](https://img.shields.io/badge/Express-5.x-lightgrey.svg)](https://expressjs.com/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![Accessibilité](https://img.shields.io/badge/Accessibilité-Testée-success.svg)](https://accessiart.douay-bigot.info)
 
 
 ## 🎯 À propos du projet
@@ -196,7 +198,7 @@ docker compose down
 docker compose down -v
 
 # Reconstruire après modification
-docker compose up -d --build
+docker compose up --build
 
 # Voir les logs en temps réel
 docker compose logs -f
@@ -224,13 +226,53 @@ docker compose logs -f
 
 ##  🧪 Plan de tests
 
-Les tests arrivent bientôt ... ;-)
+Les tests arrivent bientôt dans la branche "tests" ... ;-)
+
+##  🚀 Déploiement en production
+
+<details>
+<summary><b>Déploiement avec Portainer</b></summary>
+
+### 1. Créer une nouvelle Stack
+
+Dans Portainer, allez dans **Stacks** → **+ Add stack** et choisissez **Git Repository** :
+
+```
+Repository URL: https://github.com/lesliebigot/accessiArt
+Reference: refs/heads/prod (ou branche prod-v2 pour la version production)
+Compose path: compose.prod.yml
+```
+
+### 2. Configurer les variables d'environnement
+
+Dans l'onglet **Environment variables** (mode avancé), ajoutez :
+
+```env
+POSTGRES_USER=accessiart
+POSTGRES_PASSWORD=motDePasseComplexe
+POSTGRES_DB=accessiart_db
+PG_URL=postgres://accessiart:motDePasseComplexe@db:5432/accessiart_db
+NODE_ENV=production
+PORT=3000
+```
+
+### 3. Déployer la stack
+
+Cliquez sur **Deploy the stack**. L'application sera accessible sur le port 3000.
+
+### 4. Configurer le reverse proxy
+
+Configurez votre reverse proxy (Nginx, Traefik, ou le reverse proxy intégré du NAS) pour rediriger le trafic HTTPS vers `localhost:3000`.
+
+**Note** : Si vous avez modifié le schéma de la base de données, vous devez supprimer la stack et ses volumes associés avant de la recréer, sinon les anciennes données seront conservées.
+
+</details>
 
 ## 🚧 Développements et fonctionnalités futures
 
 - Le visiteur pourra proposer des tableaux libres de droit et leurs descriptions pour les malvoyants dans un formulaire restrictif et sécurisé ;
 - Pagination de la liste de tous les tableaux ;
-- Ajout de descriptions audio enregistrées pour une expérience encore plus immersive.
+- Ajout d'une table pour fournir une biographie concise sur chaque peintre.
 
 ## 🤝 Contribuer
 
@@ -253,6 +295,43 @@ Les contributions sont les bienvenues ! Si vous souhaitez enrichir la collection
    ```
 5. Ouvrez une **Pull Request**
 </details>
+
+## 💬 Témoignages d'utilisateurs
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 👤 Philippe Pelletier - Association H2VL
+**Utilisateur aveugle**
+
+> "Je trouve ton projet très pertinent. Au niveau de l'accessibilité, tout était très bien."
+
+**Ce qu'il apprécie :**
+- ✅ Navigation fluide
+- ✅ Descriptions sensibles et détaillées
+- ✅ Structure claire (Composition, Technique, Interprétation)
+
+*Testé avec lecteur d'écran - Jan. 2026*
+
+</td>
+<td width="50%" valign="top">
+
+### 👤 Saifeddin Ayedi - Association H2VL
+**Utilisateur aveugle**
+
+> "Le site respecte les normes d'accessibilité au plus haut niveau. **Aucune anomalie détectée.**"
+
+**Tests réalisés :**
+- ✅ VoiceOver (iOS)
+- ✅ NVDA (Windows)
+- ✅ JAWS (Windows)
+
+*Testé avec lecteur d'écran - Jan. 2026*
+
+</td>
+</tr>
+</table>
 
 ## 📝 Sources des données
 

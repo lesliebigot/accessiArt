@@ -21,5 +21,10 @@ router.get("/movements", mainController.renderMovementsPage);
 // Legal notice page
 router.get("/legal-notice", mainController.renderLegalNoticePage);
 
+// Route de test pour erreur 500 (à supprimer en production)
+router.get("/test-500", (req, res, next) => {
+  next(new Error("Test erreur 500"));
+});
+
 // Export du router 
 export default router;

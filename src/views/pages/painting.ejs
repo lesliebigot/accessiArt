@@ -24,33 +24,33 @@
       <!-- Section Image avec zoom -->
       <section class="order-1" aria-labelledby="image-section-title">
         <h2 id="image-section-title" class="sr-only">Illustration du tableau</h2>
-        
-        <!-- Bouton pour agrandir l'image -->
-        <div class="bg-base-100 rounded-lg shadow-xl p-4">
-          <div class="mb-4 flex justify-between items-center">
-            <p class="text-sm text-base-content/70">Cliquez sur l'image pour l'agrandir</p>
-            <button 
-              id="zoom-btn"
-              class="btn btn-sm btn-primary"
-              aria-label="Agrandir l'image du tableau en plein écran"
-            >
-              🔍 Agrandir
-            </button>
-          </div>
           
           <!-- Image cliquable -->
-          <figure class="cursor-zoom-in" id="image-container">
+          <figure id="image-container" class="relative">
             <img
               id="painting-image"
               src="<%= painting.image_url %>"
-              alt="<%= painting.short_description %>"
-              class="w-full h-auto rounded-lg shadow-2xl transition-transform hover:scale-105"
+              alt="<%= painting.short_description || painting.title + ' par ' + painting.painter %>"
+              data-title="<%= painting.title %>"
+              data-painter="<%= painting.painter %>"
+              class="w-full rounded-lg shadow-2xl cursor-pointer hover:opacity-90 transition-opacity"
               tabindex="0"
               role="button"
-              aria-label="Cliquez pour agrandir l'image de <%= painting.title %>"
+              aria-label="Cliquer pour afficher <%= painting.title %> en plein écran"
             />
+            
+            <!-- Bouton pour ouvrir en plein écran -->
+            <button
+              id="fullscreen-btn"
+              class="btn btn-circle btn-primary absolute bottom-4 right-4"
+              aria-label="Afficher <%= painting.title %> en plein écran"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+              </svg>
+            </button>
           </figure>
-        </div>
+
       </section>
 
       <!-- Section Informations et Description -->
@@ -171,65 +171,44 @@
   </div>
 </main>
 
-<!-- Modal de zoom plein écran -->
-<div id="zoom-modal" class="modal">
-  <div class="modal-box w-full max-w-none h-full max-h-none p-0 bg-black/95">
-    <!-- Barre d'outils -->
-    <div class="absolute top-0 left-0 right-0 z-10 bg-black/80 p-4">
-      <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2">
-        <!-- Boutons de zoom -->
-        <div class="flex flex-wrap gap-2">
-          <button 
-            id="zoom-in-btn" 
-            class="btn btn-sm btn-primary flex-1 sm:flex-none"
-            aria-label="Zoomer davantage sur l'image"
-          >
-            🔍+ Zoom +
-          </button>
-          <button 
-            id="zoom-out-btn" 
-            class="btn btn-sm btn-primary flex-1 sm:flex-none"
-            aria-label="Dézoomer l'image"
-          >
-            🔍- Zoom -
-          </button>
-          <button 
-            id="reset-zoom-btn" 
-            class="btn btn-sm btn-secondary flex-1 sm:flex-none"
-            aria-label="Réinitialiser le zoom"
-          >
-            ↺ Réinitialiser
-          </button>
-        </div>
-        
-        <!-- Bouton fermer -->
-        <button 
-          id="close-modal-btn" 
-          class="btn btn-sm btn-error w-full sm:w-auto"
-          aria-label="Fermer la vue agrandie et revenir à la page"
-        >
-          ✕ Fermer
-        </button>
-      </div>
-    </div>
+<!-- Modal plein écran -->
+<div id="fullscreen-modal" class="modal" role="dialog" aria-labelledby="fullscreen-title" aria-modal="true">
+  <div class="modal-box max-w-7xl w-full h-screen max-h-screen p-0 relative">
+    
+    <!-- Bouton fermer en haut à droite -->
+    <button
+      id="close-modal-btn"
+      class="btn btn-circle btn-ghost absolute top-4 right-4 z-50 bg-base-100/80 hover:bg-base-100"
+      aria-label="Fermer l'affichage plein écran"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
 
-    <!-- Conteneur de l'image zoomable -->
-    <div class="w-full h-full flex items-center justify-center overflow-auto p-4 pt-20">
+    <!-- Container de l'image avec overlay d'informations -->
+    <div class="relative w-full h-full flex items-center justify-center bg-base-300">
+      
+      <!-- Image en plein écran -->
       <img
-        id="zoomed-image"
-        src="<%= painting.image_url %>"
-        alt="<%= painting.short_description %> - Vue agrandie"
-        class="max-w-none transition-transform cursor-move"
-        draggable="false"
+        id="fullscreen-image"
+        src=""
+        alt=""
+        class="max-w-full max-h-full object-contain"
       />
+
+      <!-- Overlay avec titre et auteur en bas -->
+      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-base-100/95 to-transparent p-6">
+        <h2 id="fullscreen-title" class="text-2xl md:text-3xl font-bold text-primary mb-2">
+          <!-- Titre inséré par JS -->
+        </h2>
+        <p id="fullscreen-painter" class="text-lg md:text-xl text-base-content/80">
+          <!-- Auteur inséré par JS -->
+        </p>
+      </div>
+
     </div>
 
-    <!-- Instructions -->
-    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/80 text-white px-4 py-2 rounded text-sm">
-      <p class="text-center">
-        Utilisez les boutons de zoom ou la molette de la souris. Cliquez et glissez pour déplacer l'image.
-      </p>
-    </div>
   </div>
 </div>
 

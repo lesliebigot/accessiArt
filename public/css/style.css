@@ -28,31 +28,21 @@ main {
   border-width: 0;
 }
 
-/* Amélioration du focus visible */
-button:focus-visible,
-a:focus-visible {
-  outline: 3px solid hsl(var(--p));
-  outline-offset: 3px;
-}
-
-.cursor-zoom-in {
-  cursor: zoom-in;
-}
-
-/* Style pour le zoom sur un tableau */
-#zoomed-image {
-  position: relative;
-  cursor: move;
-}
-
+/* Animation d'ouverture de la modal */
 .modal {
-  display: none;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.modal.modal-open {
-  display: flex;
-  position: fixed;
-  inset: 0;
-  z-index: 999;
+.modal-open {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 

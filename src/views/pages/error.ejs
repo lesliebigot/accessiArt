@@ -1,0 +1,69 @@
+<%- include("../partials/head") %> 
+<%- include('../partials/header') %>
+
+<main id="main-content" class="min-h-screen bg-base-200 flex items-center justify-center p-4">
+  <div class="max-w-2xl mx-auto text-center">
+    <!-- Carte d'erreur -->
+    <article class="card bg-base-100 shadow-xl p-8" aria-labelledby="error-title">
+      
+      <!-- Code d'erreur -->
+      <div class="mb-6">
+        <p class="text-8xl font-bold text-error" aria-hidden="true">
+          <%= error.code %>
+        </p>
+      </div>
+
+      <!-- Titre de l'erreur -->
+      <h1 id="error-title" class="text-3xl font-bold text-secondary mb-4">
+        <%= error.title %>
+      </h1>
+
+      <!-- Description -->
+      <p class="text-lg text-base-content/80 mb-8">
+        <%= error.message %>
+      </p>
+
+      <!-- Suggestions -->
+      <div class="bg-base-200 rounded-lg p-6 mb-8 text-left">
+        <h2 class="text-xl font-semibold text-primary mb-4">Que faire ?</h2>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="text-primary font-bold" aria-hidden="true">•</span>
+            <span>Vérifiez l'adresse dans la barre de navigation</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary font-bold" aria-hidden="true">•</span>
+            <span>Retournez à la page d'accueil</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary font-bold" aria-hidden="true">•</span>
+            <span>Explorez notre collection de tableaux</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Boutons d'action -->
+      <nav aria-label="Navigation depuis la page d'erreur" class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="btn btn-primary">
+          Retour à l'accueil
+        </a>
+        <a href="/paintings" class="btn btn-secondary">
+          Voir les tableaux
+        </a>
+      </nav>
+
+      <!-- Message de contact (pour erreur 500) -->
+      <% if (error.code === 500) { %>
+      <div class="mt-8 p-4 bg-warning/10 rounded-lg">
+        <p class="text-sm text-base-content/70">
+          Si le problème persiste, n'hésitez pas à nous contacter à 
+          <a href="mailto:lesliebigot@icloud.com" class="link link-primary">lesliebigot@icloud.com</a>
+        </p>
+      </div>
+      <% } %>
+
+    </article>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>
